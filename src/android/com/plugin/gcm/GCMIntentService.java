@@ -101,7 +101,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 		NotificationCompat.Builder mBuilder =
 			new NotificationCompat.Builder(context)
 				.setDefaults(defaults)
-				.setSmallIcon(context.getApplicationInfo().icon)
+				.setSmallIcon(R.drawable.notification)
+				.setColor(0xffF4B500)
 				.setWhen(System.currentTimeMillis())
 				.setContentTitle(extras.getString("title"))
 				.setTicker(extras.getString("title"))
@@ -111,6 +112,16 @@ public class GCMIntentService extends GCMBaseIntentService {
 		String message = extras.getString("message");
 		if (message != null) {
 			mBuilder.setContentText(message);
+
+			NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
+
+			// Sets a title for the BigTextStyle in expanded layout
+			bigText.setBigContentTitle(extras.getString("title"));
+			bigText.bigText(message);
+			bigText.setSummaryText(extras.getString("title"));
+
+			// Moves the expanded layout object into the notification object.
+			mBuilder.setStyle(bigText);
 		} else {
 			mBuilder.setContentText("<missing message content>");
 		}
