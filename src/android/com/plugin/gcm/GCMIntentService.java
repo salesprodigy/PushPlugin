@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.text.Html;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -110,7 +111,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 				.setContentIntent(contentIntent)
 				.setAutoCancel(true);
 
-		String message = extras.getString("message");
+		String message = Html.fromHtml(extras.getString("message")).toString().trim();
 		if (message != null) {
 			mBuilder.setContentText(message);
 
